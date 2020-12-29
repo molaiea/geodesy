@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from math import atan, sqrt, acos, asin
 #comment
 #test
-#hh
+#asmaa
 class Point:
     Lat, Long, Az, Beta1, Beta0, W2, A1, B1, Sigma, alphaE, Sigma1, Sm, Dsigma, Sigmaf, x, y, z = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
