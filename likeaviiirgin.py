@@ -75,10 +75,10 @@ for i in range(1,n):
     Pi.Long = dlambda+p[i-1].Long
     Pi.Az = atan(sin(p[i-1].alphaE)/(cos(p[i-1].Beta1)*cos(p[i-1].Sigmaf)*cos(p[i-1].Az)-sin(p[i-1].Beta1)*sin(p[i-1].Sigmaf)))
 
-    Pi.Beta1 = atan((1-f)*tan(Pi.Lat))
-    Pi.Beta0 = acos(cos(Pi.Beta1)*sin(az1))
+
+    Pi.Beta0 = acos(cos(Pi.Beta1)*sin(Pi.Az))
     Pi.W2 = e1**2*(sin(Pi.Beta1)**2)
-    Pi.Sigma1 = atan(tan(Pi.Beta1)/cos(az1))
+    Pi.Sigma1 = atan(tan(Pi.Beta1)/cos(Pi.Az))
     Pi.alphaE = asin(cos(Pi.Beta0))
     Pi.A1 = 1+(Pi.W2/16384)*(4096+Pi.W2*(-768+Pi.W2*(320-175*Pi.W2)))
     Pi.B1 = (Pi.W2/1024)*(256+Pi.W2*(-128+Pi.W2*(74-47*Pi.W2)))
@@ -147,8 +147,8 @@ ax.plot([p[i].x for i in range(n)],
 #coordonnees geocetriques dle pt de départ
 xt, yt, zt =geodetic_to_geocentric(WGS84, phi1, lambda1, 0)
 #phi lambda du pt darrivee
-phif = 46.51404856*pi/180
-lamf = 80.05730223*pi/180
+phif = 0.8118492215723883
+lamf = 0.6468044062921094
 #coordonnes geocentrique du pt darrivee
 xf, yf, zf =geodetic_to_geocentric(WGS84, phif, lamf, 0)
 #plotting pt de depart o darrivee
@@ -156,5 +156,3 @@ ax.scatter(xt, yt, zt, color='r')
 ax.scatter(xf, yf, zf, color='r')
 ax.legend()
 plt.show()
-
-#problem : geodesique mktmshish llpt darrivee
