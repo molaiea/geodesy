@@ -12,9 +12,9 @@ bc= 6356752.314245
 f= (ac - bc) / ac 
 e2 = math.sqrt((ac**2 - bc**2) / bc**2) 
 Phi1=int(input('entrer latitde du point de depart'))
-Phi2=int(input('entrer latitude du point d'arrivée))
+Phi2=int(input('entrer latitude du point darrivée'))
 Lambda1=int(input('entrer longitude du point de départ'))
-Lambda2=int(input('entrer longitude du point d'arrivée))
+Lambda2=int(input('entrer longitude du point darrivée'))
 #Problème inverse
 #onversion de la longitude et la latitude du point de départ en radian
 Pi = math.pi
