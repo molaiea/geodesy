@@ -1,17 +1,19 @@
-{% exentds 'base.html'%}
-{% block content % }
+{% extends 'base.html' %}
+{% block content %}
 <h1>Choisissez le problème à résoudre</h1>
-<div>
+<div class="container">
+    <div></div>
     <a href="/direct">
-        <button type="button" class="btn btn-light">
+        <button type="button" class="btn btn-light custombut">
             <h3>Problème direct</h3>
         </button>
     </a>
     <a href="/inverse">
-        <button type="button" class="btn btn-light">
+        <button type="button" class="btn btn-light custombut">
             <h3>Problème inverse</h3>
         </button>
     </a>
+    <div></div>
 </div>
 
 
