@@ -8,17 +8,25 @@
     <form id="form" action="" method="post" class="custform">
         {% csrf_token %}
         {{ form|crispy }}
+<<<<<<< HEAD
         <input type="text" id="latitude">
         <input type="Submit" name="submit"  value="Submit"/>
     </form>
     <div style="visibility: hidden" id="mydiv">
         <h1> {{latitude}} </h1>
+=======
+        <input type="Submit" name="submit"  value="Submit"/>
+    </form>
+    <div style="visibility: hidden" id="mydiv">
+        <h1> fddf </h1>
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
         <h1></h1>
     </div>
 
 </body>
 <script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     
+<<<<<<< HEAD
     $('#form').on('submit', function(e){
         e.preventDefault();
         document.getElementById("mydiv").style.visibility="visible";
@@ -30,6 +38,10 @@
         
         
 
+=======
+    var $form = $('#form')
+    $form.submit(function(e){
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
         e.preventDefault();
         var $formData = $(this).serialize()
         console.log($formData);
@@ -38,16 +50,24 @@
             method: "POST",
             url: $thisURL,
             data: $formData,
+<<<<<<< HEAD
             success: handleFormSuccess
+=======
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
             
         })
         document.getElementById("mydiv").style.visibility="visible";
     })
+<<<<<<< HEAD
     function handleFormSuccess(data, textStatus, jqXHR){
         console.log("success");
         console.log(data);
     }**/
     /**document.getElementById("form").addEventListener("submit", function(e) {
+=======
+    
+    document.getElementById("form").addEventListener("submit", function(e) {
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
         e.preventDefault();
         var request = new XMLHttpRequest();
         var url = window.location.href;
@@ -59,8 +79,13 @@
                     var jsonData = JSON.parse(request.response);
                         console.log(jsonData);
                     }
+<<<<<<< HEAD
                 };**/
         /**var latitude =  document.getElementById("name").value;
+=======
+                };
+        var latitude =  document.getElementById("name").value;
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
         var email = document.getElementById("email").value;
         var subject = document.getElementById("subject").value;
         var message = document.getElementById("message").value;
@@ -72,7 +97,11 @@
         request.send(jsonData);
         document.getElementById("mydiv").style.visibility="visible";
         
+<<<<<<< HEAD
     });**/
+=======
+    });
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
 </script>
 </html>
 {%endblock%}

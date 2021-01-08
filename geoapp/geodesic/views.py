@@ -1,4 +1,5 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.http import HttpResponse
 from .forms import finalform
 
@@ -12,6 +13,18 @@ def inverse(request):
 def direct(request):
 
     
+=======
+from .forms import finalform
+# Create your views here.
+def home(request) :
+    return render(request, 'home.html')
+
+
+def inverse(request) :
+    return render(request, 'inverse.html')
+
+def direct(request) :
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
     print(request.method)
     if request.method == 'POST':
         submit= request.POST.get("submit")
@@ -28,4 +41,9 @@ def direct(request):
         return render(request, 'direct.html', {'form': form, 'latitude': latitude, 'longitude': longitude})
     else:
         form = finalform()
+<<<<<<< HEAD
     return render(request, 'direct.html', {'form': form})
+=======
+    return render(request, 'direct.html', {'form': form})
+    #chahia tayiba hh
+>>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
