@@ -26,3 +26,4 @@ def direct(request) :
     else:
         form = finalform()
     return render(request, 'direct.html', {'form': form})
+    #chahia tayiba hh
