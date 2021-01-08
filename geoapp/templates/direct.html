@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<html>
+<h1 class="headd"> Problème direct</h1>
+
+<body>
+    <form id="form" action="" method="post" class="custform">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="text" id="latitude">
+        <input type="Submit" name="submit"  value="Submit"/>
+    </form>
+    <div style="visibility: hidden" id="mydiv">
+        <h1> {{latitude}} </h1>
+        <h1></h1>
+    </div>
+
+</body>
+<script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    
+    $('#form').on('submit', function(e){
+        e.preventDefault();
+        document.getElementById("mydiv").style.visibility="visible";
+          
+        
+                });     
+    /**var $form = $('#form')
+    $form.submit(function(e){
+        
+        
+
+        e.preventDefault();
+        var $formData = $(this).serialize()
+        console.log($formData);
+        var $thisURL = '/direct'
+        $.ajax({
+            method: "POST",
+            url: $thisURL,
+            data: $formData,
+            success: handleFormSuccess
+            
+        })
+        document.getElementById("mydiv").style.visibility="visible";
+    })
+    function handleFormSuccess(data, textStatus, jqXHR){
+        console.log("success");
+        console.log(data);
+    }**/
+    /**document.getElementById("form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var request = new XMLHttpRequest();
+        var url = window.location.href;
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        var jsonData = []
+        request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+                    var jsonData = JSON.parse(request.response);
+                        console.log(jsonData);
+                    }
+                };**/
+        /**var latitude =  document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var subject = document.getElementById("subject").value;
+        var message = document.getElementById("message").value;
+
+
+        
+
+
+        request.send(jsonData);
+        document.getElementById("mydiv").style.visibility="visible";
+        
+    });**/
+</script>
+</html>
+{%endblock%}
