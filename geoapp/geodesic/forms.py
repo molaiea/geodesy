@@ -2,11 +2,8 @@ from django import forms
 from django.core.validators import MaxValueValidator
 from django.forms import MultiWidget, NumberInput
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
 class LatitudeWidget(forms.MultiWidget):
     def __init__(self, attrs=None):
         super().__init__([

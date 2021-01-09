@@ -19,11 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('geodesic.urls')),
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     
 ]
-=======
-    path('',include('geodesic.urls'))
-
-]
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
