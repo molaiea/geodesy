@@ -1,5 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'plotbase.html' %}
+
 {% load crispy_forms_tags %}
+{% block head %}
+{{block.super}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
 {% block content %}
 <html>
 <h1 class="headd"> Problème direct</h1>
@@ -7,101 +12,60 @@
 <body>
     <form id="form" action="" method="post" class="custform">
         {% csrf_token %}
-        {{ form|crispy }}
-<<<<<<< HEAD
-        <input type="text" id="latitude">
-        <input type="Submit" name="submit"  value="Submit"/>
+        <!--{{ form|crispy }}!-->
+        <h4 class="cont">Choisissez une ellipsoide de référence</h4 class="cont">
+        <div>
+            {{form.ellipsoid}}
+        </div>
+        <h4 class="cont">Sinon précisez les valeurs des demi-axes</h4 class="cont">
+            <h4>Demi grand axe:</h4> {{form.grand}}
+            <h4>Demi petit axe:</h4> {{form.petit}}
+        <h4 class="cont">Coordonnées du point de départ</h4 class="cont">
+        <h4>Latitude:</h4> <div id="lat">{{form.latitude}}</div>
+        <h4>Longitude:</h4> <div id="lon">{{form.longitude}}</div>
+        <h4 class="cont">Azimut du point de départ <small>(en degrés décimals)</small></h4 class="cont">
+        <div id="az">{{form.azimut}}</div>
+        <h4 class="cont">La distance géodésique</h4 class="cont">
+        <div id="dist">{{form.distance_geodesique}}</div><br>
+        <br>
+        <input type="Submit" name="submit"  value="Calculer" class="btn btn-light btn-lg"/>
     </form>
-    <div style="visibility: hidden" id="mydiv">
-        <h1> {{latitude}} </h1>
-=======
-        <input type="Submit" name="submit"  value="Submit"/>
-    </form>
-    <div style="visibility: hidden" id="mydiv">
-        <h1> fddf </h1>
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
-        <h1></h1>
+    <div id="mydiv">
+
+        <h4 class="arrivee">Latitude du point d'arrivé:</h4> <h4 class="arrivee0">{{latitude}}</h4>
+
+        <h4 class="arrivee">Longitude du point d'arrivé:</h4> <h4 class="arrivee0">{{longitude}}</h4>
+
+        <h4 class="arrivee">Azimut inverse:</h4> <h4 class="arrivee0">{{longitude}}</h4>
     </div>
-
+        
+    
+    <button id="gotoplot" class="btn btn-light btn-lg pad">Visualiser</button>
+    <div id="plot" style="display:none;">
+    <div class="container">
+        <h1>Visualisation</h1>
+        <p class="lead">Here you go...</p>
+      </div>
+      <!-- /.container -->
+      
+      <div class="container">
+        <div class="row" style="border: 1px solid black">
+          {# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
+          <div class="col-md-12">{{plot|safe}}</div>
+        </div>
+      </div>
+    </div>
 </body>
-<script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+
+<script type="text/javascript">
+
+    var button = document.getElementById('gotoplot');
+    function clicck(e){
+        document.getElementById("plot").style.display="block";
+
+    }
+    button.addEventListener("click", clicck);
     
-<<<<<<< HEAD
-    $('#form').on('submit', function(e){
-        e.preventDefault();
-        document.getElementById("mydiv").style.visibility="visible";
-          
-        
-                });     
-    /**var $form = $('#form')
-    $form.submit(function(e){
-        
-        
-
-=======
-    var $form = $('#form')
-    $form.submit(function(e){
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
-        e.preventDefault();
-        var $formData = $(this).serialize()
-        console.log($formData);
-        var $thisURL = '/direct'
-        $.ajax({
-            method: "POST",
-            url: $thisURL,
-            data: $formData,
-<<<<<<< HEAD
-            success: handleFormSuccess
-=======
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
-            
-        })
-        document.getElementById("mydiv").style.visibility="visible";
-    })
-<<<<<<< HEAD
-    function handleFormSuccess(data, textStatus, jqXHR){
-        console.log("success");
-        console.log(data);
-    }**/
-    /**document.getElementById("form").addEventListener("submit", function(e) {
-=======
-    
-    document.getElementById("form").addEventListener("submit", function(e) {
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
-        e.preventDefault();
-        var request = new XMLHttpRequest();
-        var url = window.location.href;
-        request.open("POST", url, true);
-        request.setRequestHeader("Content-Type", "application/json");
-        var jsonData = []
-        request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-                    var jsonData = JSON.parse(request.response);
-                        console.log(jsonData);
-                    }
-<<<<<<< HEAD
-                };**/
-        /**var latitude =  document.getElementById("name").value;
-=======
-                };
-        var latitude =  document.getElementById("name").value;
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
-        var email = document.getElementById("email").value;
-        var subject = document.getElementById("subject").value;
-        var message = document.getElementById("message").value;
-
-
-        
-
-
-        request.send(jsonData);
-        document.getElementById("mydiv").style.visibility="visible";
-        
-<<<<<<< HEAD
-    });**/
-=======
-    });
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
 </script>
 </html>
 {%endblock%}

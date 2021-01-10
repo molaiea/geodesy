@@ -1,12 +1,17 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <style>
+      @import url('https://fonts.googleapis.com/css?family=Corben:700');
+      @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
         body, html{
           height: 100%;
           width: 100%;
@@ -15,21 +20,21 @@
           background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(226,209,195,1) 49%, rgba(199,245,255,1) 100%);
           background-size: 400% 400%;
           animation: gradient 15s ease infinite;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        #chartdiv {
+          width: 8rem;
+          height: 8rem;
+        max-width:8rem;
+          
         }
         
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
+        
         .custform{
           padding: 2rem;
+        }
+        .gif{
+          height: 4rem;
         }
         .headd{
             margin-top: 5%;
@@ -56,16 +61,32 @@
           margin-top: 15px;
           box-shadow: 5px 10px #888888;
         }
+        .anchor:hover{
+          text-decoration: none;
+          background-color: rgba(186, 200, 223, 0.66);
+          box-shadow: 0px 3px 5px 3px rgba(2, 10, 61, 0.66);
+        }
         .customrow{
           display: grid;
+          margin-top: 12rem;
           height: 60%;
           grid-template-columns:1fr 2fr 2fr 1fr;
           
         }
+        .name{
+          font-family: 'Ubuntu', sans-serif;
+          color: white;
+          font-weight: bolder;
+          font-size: 4rem;
+          width: 17rem;
+          border-top: 3px solid white;
+
+        }
         .anchs{
           place-self: center;
           height: 60%;
-          width: 60%;
+          width: 70%;
+          margin-top: 20%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -85,13 +106,115 @@
           left: 50%;
           border-radius: 15px;
         }
+        .logorow{
+          display: grid;
+          grid-template-columns: 4fr 1fr 3fr 4fr;
+          margin-top: 5rem;
+          align-items: center;
+          height: 10rem;
+          width: 100%;
+        }
+        .prblm {
+          font-family: 'Corben', cursive;
+          font-size: 4rem;
+          text-align: center;
+          color: white;
+          letter-spacing: 0.1rem;
+          text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.66);
+        }
+        
+        .hero {
+          background-image: radial-gradient(50% 176%, #253854 80%, #061922 100%);
+          height: 100%;
+          min-height: 30rem;
+          position: relative;
+          overflow: hidden;
+          
+          
+          
+        }
+
+        .anchor{
+          z-index: 100;
+          height: 20rem;
+          border-radius: 3rem;
+          margin-right: 2rem;
+          padding-bottom: 5rem;
+          padding-top: 5rem;
+        }
+        #showMe {
+          animation: cssAnimation 0s 3s forwards, fadeInTopLeft 0s 7s;
+          visibility: hidden;
+        }
+        
+        @keyframes cssAnimation {
+          to   { visibility: visible; }
+        }
+        .dunya
+          {width: 9rem;
+          height: 8.5rem;
+          z-index: 100;
+          box-shadow: 2px 3px 5px 2px;
+          min-height: 7rem;
+          min-width: 9rem;
+          background: url(https://1.bp.blogspot.com/-UUXaK5GCj-k/UcsKJRMgkVI/AAAAAAAACfM/sePP_H08JTQ/s1600/1.jpg);
+          border-radius: 100%;
+          background-size: 380px;
+          animation: spin 3.5s infinite linear, bounce 3.5s;}
+  
+          @keyframes spin
+            {0%
+              { 
+                background-position-x: 0;}
+            100%
+              {background-position-x: 380px;}}
+          .hero__content {
+                position: relative;
+                align-self: center;
+                padding: 3rem 0;
+                  }
+          .snow {
+            position: absolute;
+            min-width: 100vw;
+            min-height: 100vh;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+                  }
+                  
+        .snow .svg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+        
+        #snow-top-layer {
+          will-change: transform;
+          transform: translateY(-768px);
+          animation: fall 22.5s infinite linear;
+        }
+        
+        #snow-bottom-layer {
+          will-change: transform;
+          transform: translateY(-768px);
+          animation: fall 45s infinite linear;
+        }
+        
+        @keyframes fall {
+          
+          100% {
+            transform: translateY(0);
+          }
+          
+        }
     </style>
     <title>Test</title>
 </head>
 {% block content %}
 <body>
     
-
+  
 
   
 
@@ -102,39 +225,3 @@
 </body>
 {% endblock %}
 </html>
-=======
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    <style>
-      body, html{
-        height: 100%;
-        width: 100%;
-      }
-      container{
-        display: grid;
-        grid-template-columns: 1fr 2fr 2fr 1fr;
-      }
-    </style>
-  </head>
-  {% block content%}
-  <body>
-    
-
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    
-  </body>
-  {%endblock%}
-</html>
->>>>>>> 4379fda8acb039391c8ec2bfe2ad5282d000b36b
