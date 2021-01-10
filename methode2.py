@@ -48,3 +48,11 @@ while abs(Deltau) < 0.000001:
                 Deltau = Delta1 + (1 - C) * f * math.sin(AE) * (Sigma + C * math.sin(Sigma) * (math.cos(2 * Sm) + C * math.cos(Sigma) * (-1 + 2 * (math.cos(2 * Sm)**2))))
                 Delta1=Deltau
 print (Deltau)
+A1=math.atan((math.cos(B2)*math.sin(Deltau))/math.cos(B1)*math.cos(B2)-math.sin(B1)*math.cos(B2)*math.cos(Deltau))
+A2=math.atan((math.cos(B1)*math.sin(Deltau))/-math.sin(B1)*math.cos(B2)+math.cos(B1)*math.sin(B2)*math.cos(Deltau))
+if A2<0:
+    A2=A2+math.pi
+else:
+    A2=A2-math.pi
+    
+    
