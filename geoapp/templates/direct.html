@@ -8,8 +8,10 @@
 {% block content %}
 <html>
 <h1 class="headd"> Problème direct</h1>
-
+<title>Problème directe</title>
 <body>
+    {% if not plot %}
+    <div id="myform">
     <form id="form" action="" method="post" class="custform">
         {% csrf_token %}
         <!--{{ form|crispy }}!-->
@@ -28,7 +30,9 @@
         <h4 class="cont">La distance géodésique</h4 class="cont">
         <div id="dist">{{form.distance_geodesique}}</div><br>
         <br>
-        <input type="Submit" name="submit"  value="Calculer" class="btn btn-light btn-lg"/>
+        <input type="Submit" name="action"  value="Calculer" class="btn btn-light btn-lg"/>
+        <input type="Submit" name="action"  value="Visualiser" class="btn btn-light btn-lg"/>
+        
     </form>
     <div id="mydiv">
 
@@ -36,36 +40,18 @@
 
         <h4 class="arrivee">Longitude du point d'arrivé:</h4> <h4 class="arrivee0">{{longitude}}</h4>
 
-        <h4 class="arrivee">Azimut inverse:</h4> <h4 class="arrivee0">{{longitude}}</h4>
+        <h4 class="arrivee">Azimut inverse:</h4> <h4 class="arrivee0">{{azimut}}</h4>
     </div>
-        
-    
-    <button id="gotoplot" class="btn btn-light btn-lg pad">Visualiser</button>
-    <div id="plot" style="display:none;">
-    <div class="container">
-        <h1>Visualisation</h1>
-        <p class="lead">Here you go...</p>
-      </div>
-      <!-- /.container -->
-      
-      <div class="container">
-        <div class="row" style="border: 1px solid black">
+</div>
+
+    {% else %}
+    <div id="plot" style="display:block;">
+        <h3>Visualisation</h3>
           {# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
           <div class="col-md-12">{{plot|safe}}</div>
         </div>
-      </div>
-    </div>
+    {% endif %}
+
 </body>
-
-<script type="text/javascript">
-
-    var button = document.getElementById('gotoplot');
-    function clicck(e){
-        document.getElementById("plot").style.display="block";
-
-    }
-    button.addEventListener("click", clicck);
-    
-</script>
 </html>
 {%endblock%}

@@ -1,0 +1,57 @@
+{% extends 'plotbase.html' %}
+
+{% load crispy_forms_tags %}
+{% block head %}
+{{block.super}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+{% block content %}
+<html>
+<h1 class="headd"> Problème inverse</h1>
+<title>Problème inverse</title>
+<body>
+    {% if not plot %}
+    <form id="form" action="" method="post" class="custform">
+        {% csrf_token %}
+        <!--{{ form|crispy }}!-->
+        <h4 class="cont">Choisissez une ellipsoide de référence</h4 class="cont">
+        <div>
+            {{form.ellipsoid}}
+        </div>
+        <h4 class="cont">Sinon précisez les valeurs des demi-axes</h4 class="cont">
+            <h4>Demi grand axe:</h4> {{form.grand}}
+            <h4>Demi petit axe:</h4> {{form.petit}}
+        <h4 class="cont">Coordonnées du point de départ</h4 class="cont">
+        <h4>Latitude:</h4> <div id="lat">{{form.latitude}}</div>
+        <h4>Longitude:</h4> <div id="lon">{{form.longitude}}</div>
+        <h4 class="cont">Coordonnées du point d'arrivée</h4 class="cont">
+          <h4>Latitude:</h4> <div id="lat">{{form.latitude0}}</div>
+          <h4>Longitude:</h4> <div id="lon">{{form.longitude0}}</div>
+        <br>
+        <input type="Submit" name="action"  value="Calculer" class="btn btn-light btn-lg"/>
+        <input type="Submit" name="action"  value="Visualiser" class="btn btn-light btn-lg"/>
+        
+    </form>
+    <button id="test" class="btn btn-light btn-lg">testtt</button>
+    <div id="mydiv">
+
+        <h4 class="arrivee">Azimut directe:</h4> <h4 class="arrivee0">{{az1}}</h4>
+
+        <h4 class="arrivee">Azimut inverse:</h4> <h4 class="arrivee0">{{az2}}</h4>
+
+        <h4 class="arrivee">Distance géodésique:</h4> <h4 class="arrivee0">{{distance}}</h4>
+    </div>
+
+    {% else %}
+    <div class=plotcontainer>
+    <div id="plot" style="display:block;">
+        <h3>Visualisation</h3>
+           <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>
+          
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
+{%endblock%}

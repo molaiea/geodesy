@@ -6,14 +6,11 @@ import urllib, base64
  
 from math import *
 import numpy as np
-from . import plot00
-from . import problemedirect
+from . import plot00, directp
+from . import problemedirect, problemeinverse
 import os
-import plotly.graph_objs as go
-from plotly.offline import plot
-from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
-from .forms import finalform, LatitudeField
+
+from .forms import finalform, inverseform
 
 # Create your views here.
 
@@ -21,7 +18,58 @@ def plott(request):
     print(request.POST)
 
 
-
+def inverse(request):
+    if request.method == 'POST':
+        form = inverseform(request.POST)
+        action = request.POST['action']
+        if action == "Calculer":
+            latitude, longitude, latitude0, longitude0 = 0, 0, 0, 0
+            if form.is_valid():
+                ellipsoid = form.cleaned_data.get("ellipsoid")
+                a = form.cleaned_data.get("grand")
+                b = form.cleaned_data.get("petit")
+                if a==0 or not a or b==0 or not b:
+                    if ellipsoid == "wgs":
+                        a,b = 6378137,6356752.3142
+                    elif ellipsoid == "grs":
+                        a,b = 6378137,6356752.3141
+                    elif ellipsoid == "clarke":
+                        a,b =  	6378249.145,6356514.870
+                latitude= form.cleaned_data.get("latitude")
+                longitude= form.cleaned_data.get("longitude")
+                latitude0= form.cleaned_data.get("latitude0")
+                longitude0= form.cleaned_data.get("longitude0")
+                
+                s, az1, az2  = problemeinverse.inversefunction(a, b, latitude, longitude, latitude0, longitude0)
+                return render(request, 'inverse.html', {'form': form, 'az1': az1, 'az2': az2, 'distance': s})
+        elif action =="Visualiser":
+            latitude, longitude, latitude0, longitude0 = 0, 0, 0, 0
+            if form.is_valid():
+                latitude= form.cleaned_data.get("latitude")
+                latitude = latitude*pi/180
+                longitude= form.cleaned_data.get("longitude")
+                longitude = longitude*pi/180
+                latitude0= form.cleaned_data.get("latitude0")
+                latitude0 = latitude*pi/180
+                longitude0= form.cleaned_data.get("longitude0")
+                longitude0 = longitude*pi/180
+                ellipsoid = form.cleaned_data.get("ellipsoid")
+                a = form.cleaned_data.get("grand")
+                b = form.cleaned_data.get("petit")
+                if a==0 or b==0:
+                    if ellipsoid == "wgs":
+                        a,b = 6378137,6356752.3142
+                    elif ellipsoid == "grs":
+                        a,b = 6378137,6356752.3141
+                    elif ellipsoid == "clarke":
+                        a,b =  	6378249.145,6356514.870
+                az1, az2, s  = problemeinverse.inversefunction(a, b, latitude, longitude, latitude0, longitude0)
+                
+                arr = problemedirect.geodesicpoints(a, b, latitude, longitude, az1*pi/180, s)
+                return render(request, 'inverse.html', {'form': form, 'plot':plot00.plot3d(a, b, arr)})
+    else:
+        form = inverseform()
+        return render(request, 'inverse.html', {'form': form})
 def geodesic(lambda1, phi1, alpha1, s, a, b):
     f = (a-b)/a
     ep = sqrt((a**2-b**2)/b**2)
@@ -54,51 +102,86 @@ def geodesic(lambda1, phi1, alpha1, s, a, b):
     dellambda = atan(tandelu) - (1-C)*f*sin(alphae)*(sigma+C*sin(sigma)*(cos(2*sigmam)+C*cos(sigma)*(-1+2*cos(2*sigmam)**2)))
     lamf =lambda1+dellambda
     if lamf<0 and phi1>0:
-        lamf=lamf+pi
+    	lamf=lamf+pi
     elif lamf<0 and phi1<0:
-        lamf=lamf
+    	lamf=lamf
 
-    # alpha2 = atan(sin(alphae)/(cos(beta1)*cos(sigma)*cos(alpha1)-sin(beta1)*sin(sigma)))
-    return atan(tanphi2), lamf
+    alpha2 = atan(sin(alphae)/(cos(beta1)*cos(sigma)*cos(alpha1)-sin(beta1)*sin(sigma)))
+    
+    alpha2 = alpha2 + pi
+    if ( alpha2 < 0.0 ) :
+    	alpha2 = alpha2 + 2*pi
+    if ( alpha2 > 2*pi ) :
+    	alpha2 = alpha2 - 2*pi
+    return atan(tanphi2)*180/pi, lamf*180/pi, alpha2*180/pi
 
 def home(request):
     return render(request, 'home.html')
     
-def inverse(request):
-    return render(request, 'inverse.html')
+
 
 def direct(request):
 
     
-    print(request.method)
     if request.method == 'POST':
-        submit= request.POST.get("submit")
-        form = finalform(request.POST)
-        latitude, longitude = 0, 0 
-        if form.is_valid():
-            latitude= form.cleaned_data.get("latitude")
-            latitude = latitude*pi/180
-            longitude= form.cleaned_data.get("longitude")
-            longitude = longitude*pi/180
-            ellipsoid = form.cleaned_data.get("ellipsoid")
-            a = form.cleaned_data.get("grand")
-            b = form.cleaned_data.get("petit")
-            if a==0 or b==0:
-                if ellipsoid == "wgs":
-                    a,b = 6378137,6356752.3142
-                elif ellipsoid == "grs":
-                    a,b = 6378137,6356752.3141
-                elif ellipsoid == "clarke":
-                    a,b =  	6378249.145,6356514.870
-            azimut = form.cleaned_data.get("azimut")
-            azimut = azimut*pi/180
-            s = form.cleaned_data.get("distance_geodesique")
-            latf, lonf = geodesic(longitude, latitude, azimut, s, a, b)
-            #arr = [0 for i in range(400)]
-            arr = problemedirect.geodesicpoints(a, b, latitude, longitude, azimut, s)
+        action = request.POST['action']
+        if action =="Calculer":
+        
+            form = finalform(request.POST)
+            latitude, longitude = 0, 0 
+            if form.is_valid():
+                latitude= form.cleaned_data.get("latitude")
+                latitude = latitude*pi/180
+                longitude= form.cleaned_data.get("longitude")
+                longitude = longitude*pi/180
+                ellipsoid = form.cleaned_data.get("ellipsoid")
+                a = form.cleaned_data.get("grand")
+                b = form.cleaned_data.get("petit")
+                if a==0 or b==0:
+                    if ellipsoid == "wgs":
+                        a,b = 6378137,6356752.3142
+                    elif ellipsoid == "grs":
+                        a,b = 6378137,6356752.3141
+                    elif ellipsoid == "clarke":
+                        a,b =  	6378249.145,6356514.870
+                azimut = form.cleaned_data.get("azimut")
+                azimut = azimut*pi/180
+                s = form.cleaned_data.get("distance_geodesique")
+
+                latf, lonf, azf = geodesic(longitude, latitude, azimut, s, a, b)
+                #arr = [0 for i in range(400)]
+                #print(Plot3DView.as_view())
+                print(latf)
+                return render(request, 'direct.html', {'form': form, 'latitude': latf, 'longitude': lonf, 'azimut': azf})
             
-            #print(Plot3DView.as_view())
-        return render(request, 'direct.html', {'form': form, 'latitude': latf*180/pi, 'longitude': lonf*180/pi, 'plot':plot00.plot3d(a, b, arr)})
+        elif action =="Visualiser":
+            form = finalform(request.POST)
+            latitude, longitude = 0, 0 
+            if form.is_valid():
+                latitude= form.cleaned_data.get("latitude")
+                latitude = latitude*pi/180
+                longitude= form.cleaned_data.get("longitude")
+                longitude = longitude*pi/180
+                ellipsoid = form.cleaned_data.get("ellipsoid")
+                a = form.cleaned_data.get("grand")
+                b = form.cleaned_data.get("petit")
+                if a==0 or b==0:
+                    if ellipsoid == "wgs":
+                        a,b = 6378137,6356752.3142
+                    elif ellipsoid == "grs":
+                        a,b = 6378137,6356752.3141
+                    elif ellipsoid == "clarke":
+                        a,b =  	6378249.145,6356514.870
+                azimut = form.cleaned_data.get("azimut")
+                azimut = azimut*pi/180
+                s = form.cleaned_data.get("distance_geodesique")
+                
+                #arr = [0 for i in range(400)]
+                arr = problemedirect.geodesicpoints(a, b, latitude, longitude, azimut, s)
+                print(arr)
+                #print(Plot3DView.as_view())
+                return render(request, 'direct.html', {'form': form, 'plot':plot00.plot3d(a, b, arr)})
+    
     else:
         form = finalform()
-    return render(request, 'direct.html', {'form': form})
+        return render(request, 'direct.html', {'form': form})

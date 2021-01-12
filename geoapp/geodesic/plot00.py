@@ -3,6 +3,7 @@ import glob
 import logging
 import os
 from numpy import *
+from math import radians
 import plotly.graph_objs as go
 from plotly.offline import plot
 
@@ -21,8 +22,8 @@ def geodetic_to_geocentric(ellipsoid, latitude, longitude, height):
     return x, y, z
 
 def plot3d(a, b, arr):
-    phi = linspace(-pi, pi,100)
-    theta = linspace(-pi/2, pi/2,100)
+    phi = linspace(0, 2*pi,100)
+    theta = linspace(0, pi,100)
     phi, theta=meshgrid(phi, theta)
 
 
@@ -42,13 +43,14 @@ def plot3d(a, b, arr):
         width=800,
         height=800
         
+        
     )
     fig = go.Figure(go.Surface(
     x = cos(phi)*cos(theta)*a,
     y = cos(phi)*sin(theta)*a,
     z = b *sin(phi)), layout=layout)
 
-    spheroid = a,a/(a-b)
+    spheroid = a,(a-b)/a
     for i in range(400):
         arr[i].x, arr[i].y, arr[i].z = geodetic_to_geocentric(spheroid, arr[i].Lat, arr[i].Long, 0)
 
