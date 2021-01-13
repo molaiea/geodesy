@@ -35,7 +35,7 @@ def inverse(request):
                 s, az1, az2  = problemeinverse.inversefunction(a, b, latitude*pi/180, longitude*pi/180, latitude0*pi/180, longitude0*pi/180)
                 azdirect = str(az1)+"°"
                 azinverse = str(az2)+"°"
-                distance = str(s)+"m"
+                distance = str(abs(s))+"m"
                 return render(request, 'inverse.html', {'form': form, 'az1': azdirect, 'az2': azinverse, 'distance': distance})
         elif action =="Visualiser":
             latitude, longitude, latitude0, longitude0 = 0, 0, 0, 0
@@ -58,7 +58,7 @@ def inverse(request):
                         a,b = 6378137,6356752.3141
                     elif ellipsoid == "clarke":
                         a,b =  	6378249.145,6356514.870
-                az1, az2, s  = problemeinverse.inversefunction(a, b, latitude, longitude, latitude0, longitude0)
+                s, az1, az2  = problemeinverse.inversefunction(a, b, latitude, longitude, latitude0, longitude0)
                 
                 arr = problemedirect.geodesicpoints(a, b, latitude, longitude, az1*pi/180, s)
                 return render(request, 'inverse.html', {'form': form, 'plot':plot00.plot3d(a, b, arr)})
