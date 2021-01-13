@@ -104,7 +104,7 @@ class directform(forms.Form):
     petit = forms.FloatField(required=False, min_value=0, initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))
     latitude = LatitudeField()
     longitude = LongitudeField()
-    azimut = forms.FloatField(initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))
+    azimut = forms.FloatField(min_value=0, max_value=360, initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))
     distance_geodesique = forms.FloatField(min_value=0, initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))
     
 class inverseform(forms.Form):
