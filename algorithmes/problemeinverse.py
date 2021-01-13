@@ -11,7 +11,7 @@ def inversefunction(a, b, latitude1, longitude1, latitude2, longitude2):
       beta2 = atan((1-f) * tan( latitude2 ))
       #Calcul de la différence de longitude delta_lambda
       delta_lambda = longitude2 - longitude1
-      #variation_lambda = -4000000.0	#an impossibe value
+      
       delta_u = delta_lambda
       #Calcul par itération 
       #calcul des grandeurs suivantes
