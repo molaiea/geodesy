@@ -40,7 +40,7 @@ def inverse(request):
                 latitude0= form.cleaned_data.get("latitude0")
                 longitude0= form.cleaned_data.get("longitude0")
                 
-                s, az1, az2  = problemeinverse.inversefunction(a, b, latitude, longitude, latitude0, longitude0)
+                s, az1, az2  = problemeinverse.inversefunction(a, b, latitude*pi/180, longitude*pi/180, latitude0*pi/180, longitude0*pi/180)
                 return render(request, 'inverse.html', {'form': form, 'az1': az1, 'az2': az2, 'distance': s})
         elif action =="Visualiser":
             latitude, longitude, latitude0, longitude0 = 0, 0, 0, 0
