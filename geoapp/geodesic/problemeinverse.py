@@ -10,11 +10,9 @@ def inversefunction(a, b, latitude1, longitude1, latitude2, longitude2):
       beta2 = atan((1-f) * tan( latitude2 ))
 
       delta_lambda = longitude2 - longitude1
-      #variation_lambda = -4000000.0	#an impossibe value
+     
       delta_u = delta_lambda
-
-      # Iterate the following equations, 
-      #  until there is no significant change in delta_lambda 
+ 
       sqr_sin_sigma = pow( cos(beta2) * sin(delta_lambda), 2) + pow( (cos(beta1) * sin(beta2) - sin(beta1) *  cos(beta2) * cos(delta_lambda) ), 2 )
       Sin_sigma = sqrt( sqr_sin_sigma )
       Cos_sigma = sin(beta1) * sin(beta2) + cos(beta1) * cos(beta2) * cos(delta_lambda)
