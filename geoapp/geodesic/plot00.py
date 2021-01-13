@@ -38,7 +38,7 @@ def plot3d(a, b, arr):
 #     z=[p[i].z for i in range(n)]
 # ))
     layout = go.Layout(
-        title='Visualissation de la géodésique',
+        title='Visualisation de la géodésique',
         autosize=False,
         width=800,
         height=800

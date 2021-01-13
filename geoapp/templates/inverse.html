@@ -7,6 +7,12 @@
 {% endblock %}
 {% block content %}
 <html>
+    <header class="header">
+        <a class="logohead" href="/">
+        <div class="dunya"></div>
+        <h3 style="font-family: 'Ubuntu', sans-serif;">Vincenty.Py</h3></a>
+        <div></div>
+    </header>
 <h1 class="headd"> Problème inverse</h1>
 <title>Problème inverse</title>
 <body>
@@ -28,8 +34,8 @@
           <h4>Latitude:</h4> <div id="lat">{{form.latitude0}}</div>
           <h4>Longitude:</h4> <div id="lon">{{form.longitude0}}</div>
         <br>
-        <input type="Submit" name="action"  value="Calculer" class="btn btn-light btn-lg"/>
-        <input type="Submit" name="action"  value="Visualiser" class="btn btn-light btn-lg"/>
+        <input type="Submit" name="action"  value="Calculer" class="btn btn-info button"/>
+        <input type="Submit" name="action"  value="Visualiser" class="btn btn-info button"/>
         
     </form>
     <div id="mydiv">
@@ -44,7 +50,7 @@
     {% else %}
     <div class=plotcontainer>
     <div id="plot" style="display:block;">
-        <h3>Visualisation</h3>
+        <h2 class="visualisation">Visualisation</h2>
            <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>
           
         </div>

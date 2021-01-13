@@ -7,9 +7,16 @@
 {% endblock %}
 {% block content %}
 <html>
+    <header class="header">
+        <a class="logohead" href="/">
+        
+        <h3 style="font-family: 'Ubuntu', sans-serif;">Vincenty.Py</h3></a>
+        <div></div>
+    </header>
 <h1 class="headd"> Problème direct</h1>
 <title>Problème directe</title>
 <body>
+    
     {% if not plot %}
     <div id="myform">
     <form id="form" action="" method="post" class="custform">
@@ -27,7 +34,7 @@
         <h4>Longitude:</h4> <div id="lon">{{form.longitude}}</div>
         <h4 class="cont">Azimut du point de départ <small>(en degrés décimals)</small></h4 class="cont">
         <div id="az">{{form.azimut}}</div>
-        <h4 class="cont">La distance géodésique</h4 class="cont">
+        <h4 class="cont">La distance géodésique <small>(en m)</small></h4 class="cont">
         <div id="dist">{{form.distance_geodesique}}</div><br>
         <br>
         <input type="Submit" name="action"  value="Calculer" class="btn btn-light btn-lg"/>
@@ -46,9 +53,10 @@
 
     {% else %}
     <div id="plot" style="display:block;">
-        <h3>Visualisation</h3>
+        <div class="row" style="border: 1px solid black">
+        <h2 class="visualisation">Visualisation</h2>
           {# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
-          <div class="col-md-12">{{plot|safe}}</div>
+          <div class="">{{plot|safe}}</div></div>
         </div>
     {% endif %}
 

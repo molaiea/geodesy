@@ -157,7 +157,7 @@ def direct(request):
                 else:
                     lon2 = str(round(lonf))+"° E"
                 if latf<0:
-                    lat2 = str(round(latf))+"° S"
+                    lat2 = str(round(-latf))+"° S"
                 else:
                     lat2 =str(round(latf))+"° N"
                 azinverse = str(azf)+"°"
