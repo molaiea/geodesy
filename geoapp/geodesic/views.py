@@ -41,7 +41,10 @@ def inverse(request):
                 longitude0= form.cleaned_data.get("longitude0")
                 
                 s, az1, az2  = problemeinverse.inversefunction(a, b, latitude*pi/180, longitude*pi/180, latitude0*pi/180, longitude0*pi/180)
-                return render(request, 'inverse.html', {'form': form, 'az1': az1, 'az2': az2, 'distance': s})
+                azdirect = str(az1)+"°"
+                azinverse = str(az2)+"°"
+                distance = str(s)+"m"
+                return render(request, 'inverse.html', {'form': form, 'az1': azdirect, 'az2': azinverse, 'distance': distance})
         elif action =="Visualiser":
             latitude, longitude, latitude0, longitude0 = 0, 0, 0, 0
             if form.is_valid():
@@ -149,9 +152,18 @@ def direct(request):
                 s = form.cleaned_data.get("distance_geodesique")
 
                 lonf, latf, azf = directp.direct(a, b,latitude, longitude, azimut, s)
+                if lonf<0:
+                    lon2 = str(round(-lonf))+"° O"
+                else:
+                    lon2 = str(round(lonf))+"° E"
+                if latf<0:
+                    lat2 = str(round(latf))+"° S"
+                else:
+                    lat2 =str(round(latf))+"° N"
+                azinverse = str(azf)+"°"
                 #arr = [0 for i in range(400)]
                 #print(Plot3DView.as_view())
-                return render(request, 'direct.html', {'form': form, 'latitude': latf, 'longitude': lonf, 'azimut': azf})
+                return render(request, 'direct.html', {'form': form, 'latitude': lat2, 'longitude': lon2, 'azimut': azinverse})
             
         elif action =="Visualiser":
             form = finalform(request.POST)
