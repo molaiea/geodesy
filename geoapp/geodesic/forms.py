@@ -6,9 +6,9 @@ from django.forms import MultiWidget, NumberInput
 class LatitudeWidget(forms.MultiWidget):
     def __init__(self, attrs=None):
         super().__init__([
-            forms.NumberInput( attrs={'max':90, 'min':0, 'class': 'numinp'}),
+            forms.NumberInput( attrs={'max':89, 'min':0, 'class': 'numinp'}),
             forms.NumberInput(attrs={'max':59, 'min':0, 'class': 'numinp'}),
-            forms.NumberInput(attrs={'max':59, 'min':0, 'class': 'numinp'}),
+            forms.NumberInput(attrs={'max':60, 'min':0, 'class': 'numinp'}),
             forms.Select(choices=(
             ('north', 'N'),
             ('south', 'S')), attrs={'class':'selectdrop'})])
@@ -40,9 +40,9 @@ class LatitudeField(forms.MultiValueField):
 class LongitudeWidget(forms.MultiWidget):
     def __init__(self, attrs=None):
         super().__init__([
-            forms.NumberInput(attrs={'max':180, 'min':0, 'class': 'numinp'}),
+            forms.NumberInput(attrs={'max':179, 'min':0, 'class': 'numinp'}),
             forms.NumberInput(attrs={'max':59, 'min':0, 'class': 'numinp'}),
-            forms.NumberInput(attrs={'max':59, 'min':0, 'class': 'numinp'}),
+            forms.NumberInput(attrs={'max':60, 'min':0, 'class': 'numinp'}),
             forms.Select(choices=(
             ('est', 'E'),
             ('west', 'O')), attrs={'class':'selectdrop'})])
@@ -98,7 +98,7 @@ class parametersField(forms.MultiValueField):
         if data_list:
             return data_list
         return [None, None]
-class finalform(forms.Form):
+class directform(forms.Form):
     ellipsoid = forms.ChoiceField(choices=[('wgs', 'WGS84'),('grs', 'GRS80'), ('clarke', 'Clarke1880')], required=False, widget= forms.Select(attrs={'class':'selectdrop'}))
     grand =  forms.FloatField(required=False, min_value=0, initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))
     petit = forms.FloatField(required=False, min_value=0, initial=0, widget=forms.NumberInput(attrs={'class':'ccst'}))

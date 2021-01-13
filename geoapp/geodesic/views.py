@@ -1,8 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
-import io
-import urllib, base64
+
  
 from math import *
 import numpy as np
@@ -10,12 +7,7 @@ from . import plot00, directp
 from . import problemedirect, problemeinverse
 import os
 
-from .forms import finalform, inverseform
-
-# Create your views here.
-
-def plott(request):
-    print(request.POST)
+from .forms import directform, inverseform
 
 
 def inverse(request):
@@ -130,7 +122,7 @@ def direct(request):
         action = request.POST['action']
         if action =="Calculer":
         
-            form = finalform(request.POST)
+            form = directform(request.POST)
             latitude, longitude = 0, 0 
             if form.is_valid():
                 latitude= form.cleaned_data.get("latitude")
@@ -166,7 +158,7 @@ def direct(request):
                 return render(request, 'direct.html', {'form': form, 'latitude': lat2, 'longitude': lon2, 'azimut': azinverse})
             
         elif action =="Visualiser":
-            form = finalform(request.POST)
+            form = directform(request.POST)
             latitude, longitude = 0, 0 
             if form.is_valid():
                 latitude= form.cleaned_data.get("latitude")
@@ -194,5 +186,5 @@ def direct(request):
                 return render(request, 'direct.html', {'form': form, 'plot':plot00.plot3d(a, b, arr)})
     
     else:
-        form = finalform()
+        form = directform()
         return render(request, 'direct.html', {'form': form})
