@@ -1,5 +1,5 @@
 from math import *
-from . import direct, directp
+from . import directp
 
 def geodesic(lambda1, phi1, alpha1, s, a, b):
     f = (a-b)/a
