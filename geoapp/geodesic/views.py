@@ -152,9 +152,7 @@ def direct(request):
                     lat2 = str(round(-latf))+"° S"
                 else:
                     lat2 =str(round(latf))+"° N"
-                azinverse = str(azf)+"°"
-                #arr = [0 for i in range(400)]
-                #print(Plot3DView.as_view())
+                azinverse = str(round(azf))+"°"
                 return render(request, 'direct.html', {'form': form, 'latitude': lat2, 'longitude': lon2, 'azimut': azinverse})
             
         elif action =="Visualiser":
