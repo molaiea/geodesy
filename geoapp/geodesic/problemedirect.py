@@ -49,7 +49,6 @@ def geodesic(lambda1, phi1, alpha1, s, a, b):
 
 def geodesicpoints(a, b, phi1, lambda1, az1, s):
 
-
     f = (a-b)/a
     #1ere eccentricitee e
     e2 = sqrt((a**2-b**2)/a**2)
@@ -83,7 +82,7 @@ def geodesicpoints(a, b, phi1, lambda1, az1, s):
     P1.Sm = (2*P1.Sigma1+P1.Sigma)/2
     P1.Dsigma = (P1.B1)*sin(P1.Sigma)*(cos(2*P1.Sm)+(P1.B1/4)*(cos(P1.Sigma)*(2*(cos(2*P1.Sm))**2-1)-(P1.B1)/6*cos(2*P1.Sm)*(-3+4*(sin(P1.Sigma))**2)*(-3+4*(cos(2*P1.Sm))**2)))
     # tant que delta sigma kber mn la precision libghina neawdu ls calculs o kula mra n updatiw lvalues d sigma, sigma_m o delta sigma
-    while abs(P1.Dsigma)>0.00001:
+    while abs(P1.Dsigma)>0.001:
         P1.Sigma = P1.Sigma+P1.Dsigma
         P1.Sm = (2*P1.Sigma1+P1.Sigma)/2
         P1.Dsigma = (P1.B1)*sin(P1.Sigma)*(cos(2*P1.Sm)+(P1.B1/4)*(cos(P1.Sigma)*(2*(cos(2*P1.Sm))**2-1)-(P1.B1)/6*cos(2*P1.Sm)*(-3+4*(sin(P1.Sigma))**2)*(-3+4*(cos(2*P1.Sm))**2)))
@@ -94,10 +93,41 @@ def geodesicpoints(a, b, phi1, lambda1, az1, s):
     p.append(P1)
     #redo same for the n points again calculs flcours
     for i in range(1,n):
+        # lat, long, az = geodesic(p[i-1].Long, p[i-1].Lat, p[i-1].Az, s, a, b)
         Pi = Point()
-        Pi.Long, Pi.Lat, Pi.Az = directp.direct(a, b, p[i-1].Lat, p[i-1].Long, p[i-1].Az, s)
-        
+        # Pi.Lat, Pi.Long, Pi.Az = lat, long, az
+        Pi = Point()
+        Pi.Beta1 = atan((sin(p[i-1].Beta1)*cos(p[i-1].Sigmaf)+cos(p[i-1].Beta1)*sin(p[i-1].Sigmaf)*cos(p[i-1].Az))/sqrt((sin(p[i-1].alphaE))**2+(sin(p[i-1].Beta1)*sin(p[i-1].Sigmaf)-cos(p[i-1].Beta1)*cos(p[i-1].Sigmaf)*cos(p[i-1].Az))**2))
+        Pi.Lat = atan(tan(Pi.Beta1)/(1-f))
 
+        du = atan((sin(p[i-1].Sigmaf)*sin(p[i-1].Az))/(cos(p[i-1].Beta1)*cos(p[i-1].Sigmaf)-sin(p[i-1].Beta1)*sin(p[i-1].Sigmaf)*cos(p[i-1].Az)))
+
+        c = f*((cos(p[i-1].alphaE))**2)/16*(4+f*(4-3*(cos(p[i-1].alphaE))**2))
+
+        dlambda = du - (1-c)*f*sin(p[i-1].alphaE)*(p[i-1].Sigmaf+c*sin(p[i-1].Sigmaf)*(cos(2*p[i-1].Sm)+c*cos(p[i-1].Sigmaf)*(-1+2*(cos(2*p[i-1].Sm))**2)))
+
+        Pi.Long = dlambda+p[i-1].Long
+        Pi.Az = atan(sin(p[i-1].alphaE)/(cos(p[i-1].Beta1)*cos(p[i-1].Sigmaf)*cos(p[i-1].Az)-sin(p[i-1].Beta1)*sin(p[i-1].Sigmaf)))
+
+
+        Pi.Beta0 = acos(cos(Pi.Beta1)*sin(Pi.Az))
+        Pi.W2 = e1**2*(sin(Pi.Beta1)**2)
+        Pi.Sigma1 = atan(tan(Pi.Beta1)/cos(Pi.Az))
+        Pi.alphaE = asin(cos(Pi.Beta0))
+        Pi.A1 = 1+(Pi.W2/16384)*(4096+Pi.W2*(-768+Pi.W2*(320-175*Pi.W2)))
+        Pi.B1 = (Pi.W2/1024)*(256+Pi.W2*(-128+Pi.W2*(74-47*Pi.W2)))
+        #sigma la distance angulaire between 2 consecutive points hya dima s/(b*Pi.A1) s etant le pas, ls pts dyulna aykunu equidistants
+        Pi.Sigma = s/(b*Pi.A1)
+        Pi.Sm = (2*Pi.Sigma1+Pi.Sigma)/2
+        Pi.Dsigma = (Pi.B1)*sin(Pi.Sigma)*(cos(2*Pi.Sm)+(Pi.B1/4)*(cos(Pi.Sigma)*(2*(cos(2*Pi.Sm))**2-1)-(Pi.B1)/6*cos(2*Pi.Sm)*(-3+4*(sin(Pi.Sigma))**2)*(-3+4*(cos(2*Pi.Sm))**2)))
+        while abs(Pi.Dsigma)>0.00001:
+            Pi.Sigma = Pi.Sigma+Pi.Dsigma
+            Pi.Sm = (2*Pi.Sigma1+Pi.Sigma)/2
+            Pi.Dsigma = (Pi.B1)*sin(Pi.Sigma)*(cos(2*Pi.Sm)+(Pi.B1/4)*(cos(Pi.Sigma)*(2*(cos(2*Pi.Sm))**2-1)-(Pi.B1)/6*cos(2*Pi.Sm)*(-3+4*(sin(Pi.Sigma))**2)*(-3+4*(cos(2*Pi.Sm))**2)))
+
+        Pi.Sigmaf = Pi.Sigma
+        if(Pi.Long)<0:
+            Pi.Long=Pi.Long+pi
         p.append(Pi)
     
 
