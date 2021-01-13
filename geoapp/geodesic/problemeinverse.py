@@ -6,9 +6,6 @@ def inversefunction(a, b, latitude1, longitude1, latitude2, longitude2):
       if (abs( latitude2 - latitude1 ) < 1e-8) and ( abs( longitude2 - longitude1) < 1e-8 ) :
             return 0.0, 0.0, 0.0
 
-
-      b = a * (1.0 - f)
-
       beta1 = atan((1-f) * tan( latitude1 ))
       beta2 = atan((1-f) * tan( latitude2 ))
 

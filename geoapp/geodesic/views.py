@@ -148,10 +148,9 @@ def direct(request):
                 azimut = azimut*pi/180
                 s = form.cleaned_data.get("distance_geodesique")
 
-                latf, lonf, azf = geodesic(longitude, latitude, azimut, s, a, b)
+                lonf, latf, azf = directp.direct(a, b,latitude, longitude, azimut, s)
                 #arr = [0 for i in range(400)]
                 #print(Plot3DView.as_view())
-                print(latf)
                 return render(request, 'direct.html', {'form': form, 'latitude': latf, 'longitude': lonf, 'azimut': azf})
             
         elif action =="Visualiser":

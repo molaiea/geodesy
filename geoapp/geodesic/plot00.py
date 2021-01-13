@@ -50,7 +50,7 @@ def plot3d(a, b, arr):
     y = cos(phi)*sin(theta)*a,
     z = b *sin(phi)), layout=layout)
 
-    spheroid = a,(a-b)/a
+    spheroid = a,a/(a-b)
     for i in range(400):
         arr[i].x, arr[i].y, arr[i].z = geodetic_to_geocentric(spheroid, arr[i].Lat, arr[i].Long, 0)
 

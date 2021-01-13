@@ -1,5 +1,5 @@
 from math import *
-
+from . import directp
 class Point:
     Lat, Long, Az, Beta1, Beta0, W2, A1, B1, Sigma, alphaE, Sigma1, Sm, Dsigma, Sigmaf, x, y, z = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 def geodesic(lambda1, phi1, alpha1, s, a, b):
@@ -95,7 +95,7 @@ def geodesicpoints(a, b, phi1, lambda1, az1, s):
     #redo same for the n points again calculs flcours
     for i in range(1,n):
         Pi = Point()
-        Pi.Lat, Pi.Long, Pi.Az = geodesic(p[i-1].Long, p[i-1].Lat, p[i-1].Az, s, a, b)
+        Pi.Long, Pi.Lat, Pi.Az = directp.direct(a, b, p[i-1].Lat, p[i-1].Long, p[i-1].Az, s)
         
 
         p.append(Pi)
