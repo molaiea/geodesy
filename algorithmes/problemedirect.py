@@ -67,4 +67,7 @@ def direct(latitude1, longitude1, alpha1, s, a, b):
     alpha21    = alpha21*180/pi
     if longitude2>180:
             longitude2 = longitude2-360
+    if longitude2<180:
+            longitude2 = longitude2+360
+
     return round(longitude2), round(latitude2), round(alpha21)
